@@ -16,12 +16,18 @@ public class playermovement : MonoBehaviour
     void Update()
     {
         float xInput = Input.GetAxis("Horizontal");
-        
-        if(Mathf.Abs(xInput) != 0f) {
-            body.velocity += new Vector2(xInput*speed, 0);
+        float yInput = Input.GetAxis("Horizontal");
+
+if(Mathf.Abs(xInput) > 0)
+        {
+            body.velocity = new Vector2(xInput*speed, body.velocity.y);
+        }
+if(Mathf.Abs(yInput) > 0)
+        {
+            body.velocity = new Vector2(yInput*speed, body.velocity.x);
         }
 
-        Vector2 direction = new Vector2(xInput, 0).normalized;
+        Vector2 direction = new Vector2(xInput, yInput).normalized;
         body.velocity = direction * speed;
     }
 }
