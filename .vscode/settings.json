@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Nimetön.sln"
+    "dotnet.defaultSolution": "GameJami.sln"
 }
