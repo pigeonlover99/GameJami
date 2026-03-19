@@ -10,7 +10,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
-
+    [SerializeField] private Animator animator;
+ 
     void Update()
     {
         horizontal = Input.GetAxisRaw("Horizontal");
@@ -32,6 +33,15 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
+        if (speed > 0)
+        {
+            animator.SetBool("isWalking",true);
+        }
+        else
+        {
+            animator.SetBool("isWalking",false);
+        
+        }
     }
 
     private bool IsGrounded()
