@@ -15,7 +15,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float MaxIframes;
     [SerializeField] private Vector2 size;
     [SerializeField] private Rigidbody2D rb;
-    [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
 
     [SerializeField] private Animator animator;
