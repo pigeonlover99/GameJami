@@ -35,7 +35,7 @@ public class FireEnemyAI : MonoBehaviour
             return;
         }
 
-        if (Vector3.Distance(player.position, transform.position) < 8f)
+        if (Vector3.Distance(player.position, transform.position) < 12f)
         {
             AttTimer += Time.deltaTime;
 
@@ -45,15 +45,9 @@ public class FireEnemyAI : MonoBehaviour
             localScale.x = facingLeft ? -1f : 1f;
             transform.localScale = localScale;
 
-            Vector2 vel = new Vector2(0.875f * (facingLeft ? 1f : -1f), 0f);
-            if (AttTimer < 1f) rb.velocity += vel;
-            else
-            {
-                rb.velocity -= vel * 0.375f;
-                if (AttTimer > 1.25f) {
-                    Instantiate(fireball, transform.position, Quaternion.LookRotation(rayDir));
-                    AttTimer = 0f;
-                }
+            if (AttTimer > 0.5f) {
+                Instantiate(fireball, transform.position, Quaternion.LookRotation(rayDir));
+                AttTimer = 0f;
             }
         }
         else AttTimer = 0f;

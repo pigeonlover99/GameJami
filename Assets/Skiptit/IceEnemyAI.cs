@@ -34,7 +34,7 @@ public class IceEnemyAI : MonoBehaviour
             return;
         }
 
-        if (Vector3.Distance(player.position, transform.position) < 10f)
+        if (Vector3.Distance(player.position, transform.position) < 15f)
         {
             if (AttTimer < 0.5f || AttTimer >= 1f || Vector3.Distance(player.position, transform.position) < 4f) AttTimer += Time.deltaTime;
 
