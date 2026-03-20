@@ -10,6 +10,8 @@ public class IceEnemyAI : MonoBehaviour
     public float dir;
     [SerializeField] private LayerMask lm;
     [SerializeField] private Animator an;
+        [SerializeField] private AudioClip attack;
+    private AudioSource audiosource;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,6 +33,9 @@ public class IceEnemyAI : MonoBehaviour
         {
             AttTimer = 0f;
             Debug.Log("RAY HIT");
+            audiosource = GetComponent<AudioSource>();
+            audiosource.clip = attack;
+            audiosource.Play();
             return;
         }
 
