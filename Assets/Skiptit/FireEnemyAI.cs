@@ -48,7 +48,7 @@ public class FireEnemyAI : MonoBehaviour
 
             if (AttTimer > 0.5f) {
                 audiosource = GetComponent<AudioSource>();
-                audiosource.Play();
+                audiosource.PlayOneShot(audiosource.clip);
 
                 Instantiate(fireball, transform.position, Quaternion.LookRotation(rayDir));
                 AttTimer = 0f;
