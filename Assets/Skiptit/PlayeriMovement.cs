@@ -25,8 +25,7 @@ public class PlayerMovement : MonoBehaviour
     public int IceHealth;
     public int MaxHealth;
     public int CoyoteTime;
-
- [SerializeField] private AudioClip jump;
+    
     private AudioSource audiosource;
     private void Start()
     {
@@ -54,9 +53,8 @@ public class PlayerMovement : MonoBehaviour
             {
                 if (CoyoteTime > 0) {
                     rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
-                        audiosource = GetComponent<AudioSource>();
-            audiosource.clip = jump;
-            audiosource.Play();
+                    audiosource = GetComponent<AudioSource>();
+                    audiosource.Play();
                 }
                 else if (rb.velocity.y > 0f)
                 {

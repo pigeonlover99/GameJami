@@ -10,8 +10,8 @@ public class IceEnemyAI : MonoBehaviour
     public float dir;
     [SerializeField] private LayerMask lm;
     [SerializeField] private Animator an;
-        [SerializeField] private AudioClip attack;
     private AudioSource audiosource;
+    private bool PlayedSound;
     // Start is called before the first frame update
     void Start()
     {
@@ -33,9 +33,6 @@ public class IceEnemyAI : MonoBehaviour
         {
             AttTimer = 0f;
             Debug.Log("RAY HIT");
-            audiosource = GetComponent<AudioSource>();
-            audiosource.clip = attack;
-            audiosource.Play();
             return;
         }
 
@@ -57,9 +54,18 @@ public class IceEnemyAI : MonoBehaviour
                 {
                     rb.velocity -= vel * 1.25f;
                     dir = facingLeft ? 1f : -1f;
+                    PlayedSound = false;
                 }
                 else
                 {
+                    if (!PlayedSound)
+                    {
+                        audiosource = GetComponent<AudioSource>();
+                        audiosource.Play();
+
+                        PlayedSound = true;
+                    }
+
                     if (Vector3.Distance(player.position, transform.position) > 0.2f) rb.velocity += new Vector2(dir * 4f, 0);
                     else rb.velocity *= 0.4f;
 

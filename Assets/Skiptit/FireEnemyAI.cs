@@ -12,7 +12,6 @@ public class FireEnemyAI : MonoBehaviour
     [SerializeField] private LayerMask lm;
     [SerializeField] private Animator an;
     [SerializeField] private GameObject fireball;
-    [SerializeField] private AudioClip attack;
     private AudioSource audiosource;
     // Start is called before the first frame update
     void Start()
@@ -34,9 +33,6 @@ public class FireEnemyAI : MonoBehaviour
         {
             AttTimer = 0f;
             Debug.Log("RAY HIT");
-            audiosource = GetComponent<AudioSource>();
-            audiosource.clip = attack;
-            audiosource.Play();
             return;
         }
 
@@ -51,6 +47,9 @@ public class FireEnemyAI : MonoBehaviour
             transform.localScale = localScale;
 
             if (AttTimer > 0.5f) {
+                audiosource = GetComponent<AudioSource>();
+                audiosource.Play();
+
                 Instantiate(fireball, transform.position, Quaternion.LookRotation(rayDir));
                 AttTimer = 0f;
             }
