@@ -80,12 +80,12 @@ public class PlayerMovement : MonoBehaviour
 
      private void OnTriggerStay2D(Collider2D collision)
      {
-        if ((collision.tag == "HostileFire" || collision.tag == "HostileIce") && IFrames <= 0f)
+        if ((collision.tag == "HostileFire" || collision.tag == "HostileIce" || collision.tag == "Hostile") && IFrames <= 0f)
         {
             Debug.Log("!!!!!! HIT !!!!!!");
 
             bool facingLeft = transform.position.x > collision.transform.position.x;
-            Vector2 vel = facingLeft ? new Vector2(6f, 6f) : new Vector2(-6f, 6f);
+            Vector2 vel = facingLeft ? new Vector2(6f, 3f) : new Vector2(-6f, 3f);
             rb.AddForce(vel, ForceMode2D.Impulse);
 
             if (collision.tag == "HostileFire") FireHealth--;

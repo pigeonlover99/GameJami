@@ -36,7 +36,7 @@ public class IceEnemyAI : MonoBehaviour
 
         if (Vector3.Distance(player.position, transform.position) < 15f)
         {
-            if (AttTimer < 0.5f || AttTimer >= 1f || Vector3.Distance(player.position, transform.position) < 4f) AttTimer += Time.deltaTime;
+            if (AttTimer < 0.5f || AttTimer >= 1f || Vector3.Distance(player.position, transform.position) < 8f) AttTimer += Time.deltaTime;
 
             bool facingLeft = player.position.x > transform.position.x;
 
