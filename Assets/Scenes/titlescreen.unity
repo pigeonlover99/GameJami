@@ -590,7 +590,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 868851717}
         m_TargetAssemblyTypeName: gotoscene, Assembly-CSharp
-        m_MethodName: Goscene
+        m_MethodName: gotocredits
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
