@@ -78,9 +78,14 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-     private void OnTriggerStay2D(Collider2D collision)
-     {
-        if ((collision.tag == "HostileFire" || collision.tag == "HostileIce" || collision.tag == "Hostile") && IFrames <= 0f)
+    void OnCollisionStay2D(Collision2D collision)
+    {
+        DamageBeh(collision.collider);
+    }
+
+    private void DamageBeh(Collider2D collision)
+    {
+        if ((collision.tag == "HostileFire" || collision.tag == "HostileIce") && IFrames <= 0f)
         {
             Debug.Log("!!!!!! HIT !!!!!!");
 
@@ -93,7 +98,12 @@ public class PlayerMovement : MonoBehaviour
 
             IFrames = MaxIframes;
         }
-     }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        DamageBeh(collision);
+    }
 
     private bool IsGrounded()
     {
