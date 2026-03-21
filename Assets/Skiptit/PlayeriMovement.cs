@@ -20,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private Slider fireBar;
     [SerializeField] private Slider iceBar;
+    public AudioSource audiosource2;
 
     public int FireHealth;
     public int IceHealth;
@@ -27,6 +28,7 @@ public class PlayerMovement : MonoBehaviour
     public int CoyoteTime;
     
     private AudioSource audiosource;
+    
     private void Start()
     {
         FireHealth = MaxHealth;
@@ -101,6 +103,7 @@ public class PlayerMovement : MonoBehaviour
             else IceHealth--;
 
             IFrames = MaxIframes;
+            audiosource2.PlayOneShot(audiosource2.clip);
         }
     }
 
