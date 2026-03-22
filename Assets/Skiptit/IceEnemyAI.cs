@@ -8,6 +8,7 @@ public class IceEnemyAI : MonoBehaviour
     public Rigidbody2D rb;
     public float AttTimer;
     public float dir;
+    [SerializeField] private LayerMask pm;
     [SerializeField] private LayerMask lm;
     [SerializeField] private Animator an;
     private AudioSource audiosource;
@@ -15,64 +16,40 @@ public class IceEnemyAI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (dir == 0f) dir = 1f;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        rb.velocity *= 0.7f;
         if (player == null) return;
 
-        Vector2 rayDir = player.position - transform.position;
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, rayDir, Vector2.Distance(player.position, transform.position), lm);
-        Debug.DrawRay(transform.position, rayDir);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 0.75f, lm);
+        Debug.DrawRay(transform.position, Vector2.down);
 
-        an.SetBool("Attack", AttTimer > 1f);
-        if (hit)
-        {
-            AttTimer = 0f;
-            Debug.Log("RAY HIT");
-            return;
+        if (!hit) {
+            dir = -dir;
         }
 
-        if (Vector3.Distance(player.position, transform.position) < 15f)
+        Vector3 localScale = transform.localScale;
+        localScale.x = -dir;
+        transform.localScale = localScale;
+
+        transform.position += new Vector3(dir * (AttTimer > 35f ? 0.175f : 0.066f), 0f, 0f);
+        an.SetBool("Attack", AttTimer > 30f);
+
+        Vector3 rayDir = new Vector3(dir, 0f, 0f);
+        RaycastHit2D hit2 = Physics2D.Raycast(transform.position, rayDir, 2f, pm);
+        Debug.DrawRay(transform.position, rayDir, Color.red);
+
+        if (hit2 && AttTimer <= 0f)
         {
-            if (AttTimer < 0.5f || AttTimer >= 1f || Vector3.Distance(player.position, transform.position) < 8f) AttTimer += Time.deltaTime;
+            audiosource = GetComponent<AudioSource>();
+            audiosource.PlayOneShot(audiosource.clip);
 
-            bool facingLeft = player.position.x > transform.position.x;
-
-            Vector3 localScale = transform.localScale;
-            localScale.x = facingLeft ? -1f : 1f;
-            transform.localScale = localScale;
-
-            Vector2 vel = new Vector2(0.875f * (facingLeft ? 1f : -1f), 0f);
-            if (AttTimer < 1f) rb.velocity += vel;
-            else
-            {
-                if (AttTimer < 1.25f)
-                {
-                    rb.velocity -= vel * 1.25f;
-                    dir = facingLeft ? 1f : -1f;
-                    PlayedSound = false;
-                }
-                else
-                {
-                    if (!PlayedSound)
-                    {
-                        audiosource = GetComponent<AudioSource>();
-                        audiosource.Play();
-
-                        PlayedSound = true;
-                    }
-
-                    if (Vector3.Distance(player.position, transform.position) > 0.2f) rb.velocity += new Vector2(dir * 4f, 0);
-                    else rb.velocity *= 0.4f;
-
-                    if (AttTimer > 1.5f) AttTimer = 0f;
-                }
-            }
+            AttTimer = 45f;
         }
-        else AttTimer = 0f;
+
+        if (AttTimer > 0f) AttTimer -= 1f;
     }
 }

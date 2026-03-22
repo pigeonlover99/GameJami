@@ -32,7 +32,6 @@ public class FireEnemyAI : MonoBehaviour
         if (hit)
         {
             AttTimer = 0f;
-            Debug.Log("RAY HIT");
             return;
         }
 
