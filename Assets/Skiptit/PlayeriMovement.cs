@@ -117,7 +117,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void DamageBeh(Collider2D collision)
     {
-        if ((collision.tag == "HostileFire" || collision.tag == "HostileIce") && IFrames <= 0f && !GodMode)
+        if ((collision.tag == "HostileFire" || collision.tag == "HostileIce" || collision.tag == "Hostile") && IFrames <= 0f && !GodMode)
         {
             Debug.Log("!!!!!! HIT !!!!!!");
 
@@ -127,6 +127,8 @@ public class PlayerMovement : MonoBehaviour
 
             if (collision.tag == "HostileFire") FireHealth--;
             else IceHealth--;
+
+            if (collision.tag == "Hostile") IceHealth = 0;
 
             IFrames = MaxIframes;
             DamageSource.PlayOneShot(DamageSource.clip);

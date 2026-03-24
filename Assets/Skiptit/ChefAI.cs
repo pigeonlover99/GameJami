@@ -31,7 +31,7 @@ public class ChefAI : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(transform.position, rayDir, Vector2.Distance(player.position, transform.position), lm);
         Debug.DrawRay(transform.position, rayDir);
 
-        an.SetBool("Act", AttTimer > 0.75f && AttTimer < 1f);
+        an.SetBool("Act", AttTimer > 0.5f && AttTimer < 1f);
 
         if (AttTimer < 1f) facingLeft = player.position.x > transform.position.x;
         Vector3 localScale = transform.localScale;
@@ -40,7 +40,7 @@ public class ChefAI : MonoBehaviour
 
         Vector2 vel = new Vector2(facingLeft ? 1f : -1f, 0f);
 
-        if (Vector3.Distance(player.position, transform.position) < 8f)
+        if (Vector3.Distance(player.position, transform.position) < 10f)
         {
             an.SetBool("Walk", false);
 
@@ -56,12 +56,15 @@ public class ChefAI : MonoBehaviour
                     audiosource = GetComponent<AudioSource>();
                     audiosource.PlayOneShot(audiosource.clip);
                     
-                    GameObject go = Instantiate(fireball, transform.position, Quaternion.LookRotation(rayDir + new Vector2(0f, 8f)));
-                    go.GetComponent<FireProjAI>().Phasethrough = true;
+                    for (int i = 0; i < 3; i++)
+                    {
+                        GameObject go = Instantiate(fireball, transform.position, Quaternion.LookRotation(rayDir + new Vector2(rayDir.x * Random.Range(0.5f, 1.5f), 12f + (i * 4f))));
+                        go.GetComponent<FireProjAI>().Phasethrough = true;
+                    }
                     Attacked = true;
                 }
                 
-                if (AttTimer > 1.5f) {
+                if (AttTimer > 1.25f) {
                     Attacked = false;
                     AttTimer = 0f;
                 }

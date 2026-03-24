@@ -131,7 +131,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70fb21ae4a2e64d1996ca8936aab31e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Phasethrough: 0
   dir: {x: 0, y: 0, z: 0}
+  vel: {x: 0, y: 0, z: 0}
   groundLayer:
     serializedVersion: 2
     m_Bits: 8

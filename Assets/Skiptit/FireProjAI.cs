@@ -19,7 +19,8 @@ public class FireProjAI : MonoBehaviour
         vel = new Vector3(0f, 0f, 0f);
 
         transform.rotation = quaternion.identity;
-        sprite.transform.rotation = Quaternion.AngleAxis(Mathf.Atan2(dir.y,dir.x) * Mathf.Rad2Deg, Vector3.forward);
+        if (!Phasethrough) sprite.transform.rotation = Quaternion.AngleAxis(Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg, Vector3.forward);
+        else sprite.transform.rotation = Quaternion.Euler(0f, 0f, -90f);
     }
 
     // Update is called once per frame
